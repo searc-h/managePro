@@ -17,24 +17,6 @@ export const useHeaderStore = defineStore('headerStore', {
 				close:false, //这里确保第一个永远不会被删除，简化删除tag时，如何选择下一个tag的难题
 				type:''
 			},
-			// {
-			// 	path:'/user/myactivity',
-			// 	label:'我报名的活动',
-			// 	close:true,
-			// 	type:'info'
-			// },
-			// {
-			// 	path:'/user/mymes',
-			// 	label:'我的消息',
-			// 	close:true,
-			// 	type:'info'
-			// },
-			// {
-			// 	path:'/user/other',
-			// 	label:'其他',
-			// 	close:true,
-			// 	type:'info'
-			// }
 		]
 	}),
 	actions: {

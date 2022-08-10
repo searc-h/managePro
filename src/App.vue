@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Suspense ,onMounted} from 'vue';
-import { RouterView } from 'vue-router'
+import { RouterView  } from 'vue-router'
 import {useAdminStore} from '@/stores/admin.Store'
 
 let adminStore = useAdminStore()

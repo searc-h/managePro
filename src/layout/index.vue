@@ -1,8 +1,12 @@
 <script setup lang="ts">
+
 import MyMenu from '../components/MyMenu/index.vue'
 import MyHeader from '../components/MyHeader/index.vue'
-import MyContent from '../components/MyContent/index.vue'
 import MyTag from '../components/MyTag/index.vue'
+
+
+import {defineAsyncComponent} from 'vue'
+const MyContent = defineAsyncComponent(()=>import('../components/MyContent/index.vue'))
 
 </script>
 
@@ -22,8 +26,16 @@ import MyTag from '../components/MyTag/index.vue'
 
           <MyTag />
 
+          <Suspense>
+              <template v-slot:default>
+                  <MyContent/>
+              </template>
+              <template v-slot:fallback>
+                  <h1>加载中.....</h1>
+              </template>
+          </Suspense>
 
-          <MyContent />
+
         </el-main>
 
       </el-container>

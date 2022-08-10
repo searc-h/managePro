@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { useRouter  } from 'vue-router';
-import { computed, type ComputedRef } from 'vue';
+import { computed, type ComputedRef ,onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia'
 import { useMenuStore,useHeaderStore } from '../../stores'
+import ChildMenu from './childMenu.vue'
 
+let role = ref<string>('')
+onMounted(() => {
+    role.value = sessionStorage.getItem('role') as string
+})
 let menuStore = useMenuStore()
 let {isCollapse} = storeToRefs(menuStore)
 
-let menuList = [
+let userList = [
     {
         path: "/user/allactivity",
         name: 'allactivity',
@@ -17,6 +21,7 @@ let menuList = [
     },
     {
         label: '我的',
+        path:'/user/myactivity',
         icon: 'Document',
         key: '2',
         children: [
@@ -25,7 +30,23 @@ let menuList = [
                 path: '/user/myactivity',
                 label: '我报名的活动',
                 icon: 'Location',
-                key: '2-1'
+                key: '2-1',
+                children:[
+                    {
+                        name: 'mymes',
+                        path: '/user/willactivity',
+                        label: '即将开始的活动',
+                        icon: 'Location',
+                        key: '2-1-1',
+                    },
+                    {
+                        name: 'mymes',
+                        path: '/user/havedone',
+                        label: '已经完成活动',
+                        icon: 'Location',
+                        key: '2-1-2',
+                    }
+                ]
             },
             {
                 name: 'mymes',
@@ -44,16 +65,71 @@ let menuList = [
         key: '3'
     },
 ]
+let adminList = [
+    {
+        label: '首页',
+        path:'/admin/home',
+        icon: 'Document',
+        key: '1',
+    },
+    {
+        label: '活动管理',
+        path:'/admin/activitymanage',
+        icon: 'QuestionFilled',
+        key: '2',
+        children: [
+            {
+                name: 'allactivity',
+                path: '/admin/allactivity',
+                label: '所有活动',
+                icon: 'Location',
+                key: '2-1',
+            },
+            {
+                name: 'myactivity',
+                path: '/admin/myactivity',
+                label: '我发布的活动',
+                icon: 'QuestionFilled',
+                key: '2-1-1',
+            },
+        ]
+    },
+    {
+        label: '学生管理',
+        path:'/admin/studentmanage',
+        icon: 'Document',
+        key: '2',
+        children: [
+            {
+                name: 'allstudent',
+                path: '/admin/allstudent',
+                label: '所有学生信息',
+                icon: 'Location',
+                key: '2-1',
+            },
+            {
+                name: 'myactimportstudentivity',
+                path: '/admin/importstudent',
+                label: '导入学生',
+                icon: 'Location',
+                key: '2-1-1',
+            },
+        ]
+    },     
+    
+    {
+        name: 'other',
+        path: '/admin/other',
+        label: '其他',
+        icon: 'Setting',
+        key: '2-2'
+    }
+]
 
-let hasChildList = computed(() => {
-    return menuList.filter(item => {
-        return item.children ? true : false
-    })
-})
-let noChildList = computed(() => {
-    return menuList.filter(item => {
-        return item.children ? false : true
-    })
+let menuList = computed(()=>{
+    if(role.value=='admin')
+    return adminList
+    else return userList
 })
 
 interface itemType {
@@ -61,15 +137,14 @@ interface itemType {
     name?: string,
     icon: string,
     label: string,
-    key: string
+    key: string,
+    children?:any,
 }
 
-let router = useRouter()
 let headerStore = useHeaderStore()
 
 let toRouter = (item: itemType) => {
     if(item.path){
-        router.push(item.path)
         headerStore.changeTitle(item.label)
         headerStore.addTag({
             label:item.label,
@@ -93,14 +168,39 @@ let asideWidth:ComputedRef<string> = computed(()=>{
         <div class="title animate__animated animate__backInRight" v-else="isCollapse">后台</div>
 
         <section>
-            <el-menu default-active="1"
+            
+            <el-menu 
+                router
+                default-active="/user"
                 :collapse="isCollapse" 
                 class="el-menu-vertical-demo menu"
                 active-text-color="#ffd04b"
                 :collapse-transition="false"
                 background-color="#1d1e1f" text-color="#fff"
                 >
-                <el-sub-menu v-for="item in hasChildList" :key=item.key :index="item.key">
+                <template v-for="val in menuList">
+                    <el-sub-menu :index="val.path" v-if="val.children && val.children.length > 0" :key="val.key">
+                        <template #title>
+                            <el-icon>
+                                <component :is="val.icon"></component>
+                            </el-icon>
+                            <span>{{ val.label }}</span>
+                        </template>
+                        <ChildMenu :childs="val.children" @toRouter="toRouter" />
+                    </el-sub-menu>
+                    
+                    <template v-else>
+                        <el-menu-item :index="val.path" :key="val.key" @click="toRouter(val)">
+                            <el-icon>
+                                <component :is="val.icon"></component>
+                            </el-icon>
+                            <template #title>
+                                <span>{{ val.label }}</span>
+                            </template>
+                        </el-menu-item>
+                    </template>
+                </template>
+                <!-- <el-sub-menu v-for="item in hasChildList" :key=item.key :index="item.key">
                     <template #title>
                         <el-icon>
                             <component :is="item.icon"></component>
@@ -127,7 +227,7 @@ let asideWidth:ComputedRef<string> = computed(()=>{
                         <component :is="item.icon"></component>
                     </el-icon>
                     <template #title> <span class="label">{{ item.label }}</span></template>
-                </el-menu-item>
+                </el-menu-item> -->
             </el-menu>
         </section>
 

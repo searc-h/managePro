@@ -1,19 +1,12 @@
 <template >
     <div class="content">
 
-        <Suspense>
-            <template v-slot:default>
-                <router-view></router-view>
-            </template>
-            <template v-slot:fallback>
-                <h1>加载中.....</h1>
-            </template>
-        </Suspense>
+        <router-view></router-view>
 
     </div>
 </template>
 <script setup lang="ts">
-import { Suspense } from 'vue';
+
 </script>
 <style lang="less">
 .content {

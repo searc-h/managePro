@@ -1,11 +1,12 @@
 <template>
     <div>
-        我报名的活动
+        全部活动
     </div>
 </template>
+
 <script setup lang="ts">
 
 </script>
-<style lang="">
+<style lang="less">
     
 </style>
