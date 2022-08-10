@@ -7,7 +7,6 @@ let adminStore = useAdminStore()
 
 const getTableList = async ()=>{
     let res = await adminStore.getTableData()
-    console.log('res',res)
 }
 onMounted(()=>{
     getTableList()

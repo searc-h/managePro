@@ -17,7 +17,7 @@
             <template #dropdown>
             <el-dropdown-menu>
                 <el-dropdown-item>个人信息</el-dropdown-item>
-                <el-dropdown-item>退出登陆</el-dropdown-item>
+                <el-dropdown-item @click="toLogout">退出登陆</el-dropdown-item>
             </el-dropdown-menu>
             </template>
         </el-dropdown>
@@ -27,6 +27,7 @@
 <script setup lang="ts">
 import { useMenuStore ,useHeaderStore } from '@/stores';
 import {storeToRefs} from 'pinia'
+import { useRouter } from 'vue-router';
 
 let menuStore = useMenuStore()
 let headerStore = useHeaderStore()
@@ -34,8 +35,15 @@ let {title} = storeToRefs(headerStore)
 let {isCollapse} = storeToRefs(menuStore)
 
 let changeMenuCollapse = ()=>{
-    console.log('hello change menu collapse',isCollapse.value)
+    
     menuStore.changeIsCollapse(isCollapse.value)
+}
+
+let router = useRouter()
+
+let toLogout = ()=>{
+    sessionStorage.removeItem('role')
+    router.replace('/login')
 }
 </script>
 <style lang="less">

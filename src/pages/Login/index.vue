@@ -1,29 +1,23 @@
 <script setup lang="ts">
 import { useRouter  } from 'vue-router';
-import router from '@/router'
-import {dynamicUserRoutes , dynamicAdminRoutes} from '@/router/route'
+import {initRouteByAddroute} from '@/router/index'
 import {NextLoading} from '@/utils/loading'
+import { useHeaderStore } from '@/stores';
 import { ref } from 'vue';
 
 let userouter = useRouter()
 let loading = ref<boolean>(false)
+let headerStore = useHeaderStore()
 
 let login = (role:boolean)=>{
     loading.value = true
     NextLoading.start()
-    router.removeRoute('/')
-    console.log(router.getRoutes())
-    if(role){
-        router.addRoute(dynamicAdminRoutes[0])
-        
-        sessionStorage.setItem('role','admin')
-    }else{
-        router.addRoute(dynamicUserRoutes[0])
-        
-        sessionStorage.setItem('role','user')
-    }
+    // 缓存role
+    sessionStorage.setItem('role',role?"admin":'user')
+    headerStore.clearTagList()
+    // 初始化路由
+    initRouteByAddroute()
 
-    
     setTimeout(() => {
         loading.value = false
         NextLoading.done()
@@ -32,7 +26,7 @@ let login = (role:boolean)=>{
         }else{
             userouter.push('/user')
         }
-    }, 5000);
+    }, 2000);
 }
 
 

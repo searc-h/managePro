@@ -125,11 +125,15 @@ let adminList = [
         key: '2-2'
     }
 ]
-
+// 根据role显示菜单
 let menuList = computed(()=>{
     if(role.value=='admin')
     return adminList
     else return userList
+})
+// 默认选择菜单第一项
+let defaultActive= computed<string>(()=>{
+    return menuList.value[0].path
 })
 
 interface itemType {
@@ -171,7 +175,7 @@ let asideWidth:ComputedRef<string> = computed(()=>{
             
             <el-menu 
                 router
-                default-active="/user"
+                :default-active="defaultActive"
                 :collapse="isCollapse" 
                 class="el-menu-vertical-demo menu"
                 active-text-color="#ffd04b"
