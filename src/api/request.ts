@@ -61,7 +61,8 @@ interface optionType{
 	method : string,
 	url : string,
 	mock? :boolean,
-	data?:any
+	data?:any,
+	params?:any
 }
 function request(options:optionType){
 

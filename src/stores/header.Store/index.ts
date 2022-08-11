@@ -30,6 +30,8 @@ export const useHeaderStore = defineStore('headerStore', {
 
 			this.changeTagType(tagItem)
 			this.changeTitle(tagItem.label)
+			// 新增时缓存
+			sessionStorage.setItem('tagList', JSON.stringify(this.tagList))
 		},
 
 		// 改变选中
@@ -56,18 +58,28 @@ export const useHeaderStore = defineStore('headerStore', {
 			if (tagItem.label === this.currentTagLabel) {
 				this.tagList.splice(index, 1)
 				this.changeTagType(this.tagList[index - 1])
+				
+				// 删除时缓存
+				sessionStorage.setItem('tagList', JSON.stringify(this.tagList))
 				return this.tagList[index - 1]
 			} else {
 				this.tagList.splice(index, 1)
+				
+				// 删除时缓存
+				sessionStorage.setItem('tagList', JSON.stringify(this.tagList))
 				return false
 			}
 		},
 
 		// 清除tagList
 		clearTagList() {
-			let role = sessionStorage.getItem('role')
-			if (role === 'admin') {
-				this.tagList = [
+			sessionStorage.clear()
+		},
+
+		// 修改tagList(页面刷新tagList丢失问题---缓存)
+		setTagList(role?:boolean){
+			if(role && typeof role == 'boolean') {
+				let initTagList = [
 					{
 						path: '/admin/home',
 						label: '首页',
@@ -75,11 +87,14 @@ export const useHeaderStore = defineStore('headerStore', {
 						type: ''
 					},
 				]
+				this.tagList = initTagList
 				this.title = '首页'
 				this.currentTagLabel = '首页'
+				sessionStorage.setItem('tagList',JSON.stringify(initTagList))
+				return
 			}
-			else {
-				this.tagList = [
+			if(!role && typeof role == 'boolean'){
+				let initTagList = [
 					{
 						path: '/user/allactivity',
 						label: '全部活动',
@@ -87,10 +102,14 @@ export const useHeaderStore = defineStore('headerStore', {
 						type: ''
 					},
 				]
+				this.tagList = initTagList
 				this.title = '全部活动'
 				this.currentTagLabel = '全部活动'
+				sessionStorage.setItem('tagList',JSON.stringify(initTagList))
+				return
 			}
-
+			
+			this.tagList = JSON.parse(sessionStorage.getItem('tagList') || '[]') // 刷新页面
 		}
 	},
 });

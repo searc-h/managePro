@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import {onMounted} from 'vue'
 import { useHeaderStore } from '@/stores'
 import {storeToRefs} from 'pinia'
 import {useRouter} from 'vue-router'
@@ -11,6 +11,10 @@ interface tagType {
     path:string,
     label:string
 }
+
+onMounted(() => {
+    headerStore.setTagList()
+})
 
 const handleClose = (tag: tagType , index:number) => {
     let res = headerStore.deleteTagItem(tag,index)

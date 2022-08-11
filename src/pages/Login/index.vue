@@ -14,7 +14,7 @@ let login = (role:boolean)=>{
     NextLoading.start()
     // 缓存role
     sessionStorage.setItem('role',role?"admin":'user')
-    headerStore.clearTagList()
+    headerStore.setTagList(role)
     // 初始化路由
     initRouteByAddroute()
 

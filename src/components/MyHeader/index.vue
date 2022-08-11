@@ -42,7 +42,7 @@ let changeMenuCollapse = ()=>{
 let router = useRouter()
 
 let toLogout = ()=>{
-    sessionStorage.removeItem('role')
+    headerStore.clearTagList()
     router.replace('/login')
 }
 </script>

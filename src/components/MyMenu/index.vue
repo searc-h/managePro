@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef ,onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia'
+import { useRoute } from 'vue-router';
 import { useMenuStore,useHeaderStore } from '../../stores'
 import ChildMenu from './childMenu.vue'
 
@@ -131,9 +132,12 @@ let menuList = computed(()=>{
     return adminList
     else return userList
 })
+
+let route =  useRoute()
+
 // 默认选择菜单第一项
 let defaultActive= computed<string>(()=>{
-    return menuList.value[0].path
+    return route.path
 })
 
 interface itemType {
