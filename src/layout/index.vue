@@ -56,7 +56,6 @@ const MyContent = defineAsyncComponent(()=>import('../components/MyContent/index
     display: flex;
     flex-wrap: nowrap;
 
-
     .header {
       height: 80px;
       padding: 0px;
@@ -68,6 +67,7 @@ const MyContent = defineAsyncComponent(()=>import('../components/MyContent/index
     }
 
     .main-content {
+      padding: 10px;
       width: 100%;
       height: 100%;
 

@@ -1,11 +1,11 @@
 <template >
     <div class="content">
 
-        <router-view v-slot="{ Component}">
+        <router-view v-slot="{ Component ,route}">
            <template v-if="Component">
                 <transition name="fade" mode="out-in">
                     <keep-alive>
-                        <component :is="Component"></component>
+                        <component :is="Component" :key="route.path"></component>
                     </keep-alive>
                 </transition>
             </template>
@@ -22,6 +22,7 @@
     height: 95%;
     background-color: rgb(240, 240, 240);
     overflow: hidden;
+    padding: 5px;
 }
 
 // 淡出淡入
@@ -32,6 +33,6 @@
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
-  transform:translateX(30px)
+  transform:translateX(100px)
 }
 </style>

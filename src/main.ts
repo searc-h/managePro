@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia' 
+import {pinia} from '@/stores'
 
-// 使用mock拦截对应请求
-import '@/api/mockApi/mock.js'
+// 使用mock拦截对应请求  本地mock
+// import '@/api/mockApi/mock.js'
 
 // base.css
 import '@/assets/main.css'
@@ -21,7 +21,7 @@ import 'animate.css';
 
 const app = createApp(App)
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(ElementPlus)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

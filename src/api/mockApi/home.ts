@@ -43,3 +43,38 @@ export const getTableData = () => {
         }
     }
 }
+
+export const getCardsData = ()=>{
+    return {
+        code:200,
+        data() {
+            cardsData:[
+                {
+                    count:20,
+                    des:"今日消费"
+                },
+                {
+                    count:200,
+                    des:"昨日消费"
+                },
+                {
+                    count:500,
+                    des:"周消费"
+                },
+                {
+                    count:2000,
+                    des:"月消费"
+                },
+                {
+                    count:12000,
+                    des:"今年目前消费"
+                },
+                {
+                    count:60000,
+                    des:"预计今年消费"
+                }
+                
+            ]
+        }
+    }
+}
