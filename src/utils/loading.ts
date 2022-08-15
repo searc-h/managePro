@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import '@/theme/loading.css';
+import '@/theme/loading.less';
 
 /**
  * 页面全局 Loading

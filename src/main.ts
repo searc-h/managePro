@@ -6,6 +6,7 @@ import {pinia} from '@/stores'
 
 // base.css
 import '@/assets/main.css'
+import '@/theme/index.less'
 
 // 完整引入---不考虑打包后的大小
 import ElementPlus from 'element-plus'

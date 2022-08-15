@@ -21,6 +21,44 @@
     - 修改分支名称 切换到要修改名称的分支  git branch -M main （把默认的master分支修改为main分支，避免提交到远程仓库新建分支）
 
 
+
+### 前端返回路由(该项目采用)
+
+
+### vite配置less引入
+```bash
+
+    在vite.config.ts中：
+    
+        import path from 'path'
+
+        // 允许全局引入index.less文件
+        css: {
+            preprocessorOptions: {
+            less: {
+                modifyVars: {
+                hack: `true; @import (reference) "${path.resolve('src/theme/index.less')}";`,
+                },
+                javascriptEnabled: true
+            }
+            }
+        }
+        
+```
+
+### 不让VsCode自动将less编译生成css文件
+```bash
+    文件-首选项-设置-拓展-> Easy-less -> setting.json添加：
+        "less.compile": {
+            "compress": true,
+            "sourceMap": false, 
+            "out": false, 
+        }
+```
+
+
+
+
 ### 后端返回路由
 ```bash
     # vite提供的批量导入
@@ -107,3 +145,4 @@
         }
     }
 ```
+

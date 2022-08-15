@@ -15,16 +15,21 @@ onMounted(()=>{
 
 <template>
 <!-- 一级路由出现 -->
-        <Suspense>
-            <template #default>
-                <router-view></router-view>
-            </template>
-            <template #fallback>
-                <h1>加载中.....</h1>
-            </template>
-        </Suspense>
+        <div class="app-container">
+            <Suspense>
+                <template #default>
+                    <router-view></router-view>
+                </template>
+                <template #fallback>
+                    <h1>加载中.....</h1>
+                </template>
+            </Suspense>
+        </div>
 </template>
 
 <style scoped>
-
+.app-container{
+    width: 100%;
+    height: 100vh;
+}
 </style>
