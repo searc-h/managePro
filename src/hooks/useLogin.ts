@@ -17,7 +17,7 @@ export function useLogin():returnType{
 
     let login = (role:boolean)=>{
         loading.value = true
-        NextLoading.start()
+        
         // 缓存role
         sessionStorage.setItem('role',role?"admin":'user')
         headerStore.setTagList(role)
@@ -26,13 +26,21 @@ export function useLogin():returnType{
 
         setTimeout(() => {
             loading.value = false
-            NextLoading.done()
             if(role){
                 userouter.push('/admin')
             }else{
                 userouter.push('/user')
             }
+            
         }, 2000);
+
+        setTimeout(() => {
+            NextLoading.start()
+        }, 2000);
+
+        setTimeout(() => {
+            NextLoading.done()
+        }, 4000);
     }
 
     return {

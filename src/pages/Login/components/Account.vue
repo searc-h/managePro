@@ -64,59 +64,26 @@ let loginForm = reactive<loginType>({
 </script>
 <style lang="less" scoped>
 @count : 4;
+@delay : 0.1s ,0.2s , 0.3s , 0.4s; //数组使用
+.loop(@index) when (@index <= @count ){  //loop循环定义
+    
+    .login-animation@{index}{
+        opacity: 0;
+        animation-name: error-num;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+        // extract(数组，下标)
+        animation-delay: extract(@delay, @index);
+    }
 
-// .login-content-form(@count) when (@count>=0){
-//     .login-content-form((@count - 1));
-
-//     .login-animation@{count} {
-//         opacity: 0;
-//         animation-name: error-num;
-//         animation-duration: 0.5s;
-//         animation-fill-mode: forwards;
-//         animation-delay: calc(@count/10) + s;
-//     }
-// }
-
-.login-animation1{
-    opacity: 0;
-    animation-name: error-num;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    animation-delay: 0.1s;
-}
-.login-animation2{
-    opacity: 0;
-    animation-name: error-num;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    animation-delay: 0.2s;
-}
-.login-animation3{
-    opacity: 0;
-    animation-name: error-num;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    animation-delay: 0.3s;
-}
-.login-animation4{
-    opacity: 0;
-    animation-name: error-num;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    animation-delay: 0.4s;
+    .loop(@index + 1)  //递归实现循环
 }
 
 .login-content-form {
 	margin-top: 20px;
     letter-spacing: 2px;
     
-    // .login-animation1{
-    //     opacity: 0;
-    //     animation-name: error-num;
-    //     animation-duration: 0.5s;
-    //     animation-fill-mode: forwards;
-    //     animation-delay: calc(@count/10) + s;
-    // }
+    .loop(0);  //循环调用
 
 	.login-content-password {
 		display: inline-block;

@@ -57,46 +57,26 @@ let loginData = reactive<loginType>({
 </script>
 <style lang="less" scoped>
 @count : 3;
+@delay : 0.1s ,0.2s , 0.3s; //数组使用
+.loop(@index) when (@index <= @count ){  //loop循环定义
+    
+    .login-animation@{index}{
+        opacity: 0;
+        animation-name: error-num;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+        // extract(数组，下标)
+        animation-delay: extract(@delay, @index);
+    }
 
-
+    .loop(@index + 1)  //递归实现循环
+}
 
 .login-content-form{
     margin-top: 20px;
     letter-spacing: 2px;
 
-    .loop(@count) when (@count>=0){
-        .loop((@count - 1));
-
-        .login-animation@{count} {
-            opacity: 0;
-            animation-name: error-num;
-            animation-duration: 0.5s;
-            animation-fill-mode: forwards;
-            animation-delay: calc(@count/10) + s;
-        }
-    }
-    
-    .login-animation1{
-        opacity: 0;
-        animation-name: error-num;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards;
-        animation-delay: 0.1s;
-    }
-    .login-animation2{
-        opacity: 0;
-        animation-name: error-num;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards;
-        animation-delay: 0.2s;
-    }
-    .login-animation3{
-        opacity: 0;
-        animation-name: error-num;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards;
-        animation-delay: 0.3s;
-    }
+    .loop(0);
 
     .getcode{
         width: 100%;
