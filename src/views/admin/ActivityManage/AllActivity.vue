@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="allActive">
         全部活动
     </div>
 </template>
@@ -8,5 +8,7 @@
 
 </script>
 <style lang="less">
-    
+.allActive{
+    background-color: red;
+}
 </style>

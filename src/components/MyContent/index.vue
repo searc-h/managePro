@@ -3,8 +3,8 @@
 
         <router-view v-slot="{ Component ,route}">
            <template v-if="Component">
-                <transition name="fade" mode="out-in">
-                    <keep-alive>
+                <transition name="slide-right" mode="out-in">
+                    <keep-alive include="all">
                         <component :is="Component" :key="route.path"></component>
                     </keep-alive>
                 </transition>
@@ -17,6 +17,7 @@
 
 </script>
 <style lang="less">
+@import '../../../src/theme/common/transition.less';
 .content {
     width: 100%;
     height: 95%;
@@ -26,13 +27,13 @@
 }
 
 // 淡出淡入
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.5s ease;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-  transform:translateX(100px)
-}
+// .fade-enter-active,
+// .fade-leave-active {
+//   transition: all 0.5s ease;
+// }
+// .fade-enter,
+// .fade-leave-to {
+//   opacity: 0;
+//   transform:translateX(100px)
+// }
 </style>
