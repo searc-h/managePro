@@ -79,10 +79,13 @@ function request(options:optionType){
 
     // 线上环境不使用mock
     if(config.env === 'prod'){
-        service.defaults.baseURL = config.baseApi
+        // service.defaults.baseURL = config.baseApi
+		service.defaults.baseURL = config.mockApi //这里指定了线上也用mockApi，只是在vercel上测试一下而已，没有搭建后台服务
+		console.log("不适用线上Mock接口 baseURL is :",service.defaults.baseURL)
     } else {
         // 根据isMock开关来决定baseURL
         service.defaults.baseURL = isMock ? config.mockApi : config.baseApi
+		console.log("用线上Mock接口 baseURL is :",service.defaults.baseURL)
     }
 
 	return service(options)

@@ -1,6 +1,6 @@
 
-const env:string = import.meta.env.MODE || "prod"
-
+const env:string = import.meta.env.MODE
+console.log("当前的开发环境是：" ,env)
 interface apiType {
     baseApi: string,
     mockApi: string
@@ -16,7 +16,7 @@ const EnvConfig:Record<string , apiType> = {
         mockApi:'https://www.fastmock.site/mock/bf81531e39f254bba7977b6c44976ff4/api'
     },
     prod: {
-        baseApi:'/prod',
+        baseApi:'/api',
         mockApi:'https://www.fastmock.site/mock/bf81531e39f254bba7977b6c44976ff4/api'
     },
 }
