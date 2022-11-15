@@ -15,7 +15,7 @@ const EnvConfig:Record<string , apiType> = {
         baseApi:'/test',
         mockApi:'https://www.fastmock.site/mock/bf81531e39f254bba7977b6c44976ff4/api'
     },
-    prod: {
+    production: {
         baseApi:'/api',
         mockApi:'https://www.fastmock.site/mock/bf81531e39f254bba7977b6c44976ff4/api'
     },
